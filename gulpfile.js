@@ -9,7 +9,7 @@ require('laravel-elixir-vue-2');
  |  Configuring Elixir default path
  |--------------------------------------------------------------------------
  */
-
+elixir.config.sourcemaps = false;
 elixir.config.assetsPath = './app';
 elixir.config.css.sass.folder = './sass';
 elixir.config.js.folder  = './';
