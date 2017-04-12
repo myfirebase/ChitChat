@@ -118,15 +118,6 @@ export default {
             })
         },
         synchronize() {
-            /*this.$storage.getDownloadURL({
-                ref: this.$auth.user().photoURL,
-                result: (url) => {
-                    this.profilePicture = url
-                },
-                error: (error) => {
-                    this.error = error.message
-                }
-            })*/
             this.profilePicture = this.$auth.user().photoURL
         }
     }
