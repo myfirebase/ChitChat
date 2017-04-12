@@ -16,7 +16,7 @@ export default {
             then: (user) =>{
                 console.log("logged in")
             },
-            catch: ()=> {}
+            catch: () => {}
         });
     },
     data() {
@@ -40,12 +40,4 @@ export default {
   align-items: center;
   justify-content: center;
 }
-/*
-.fade-enter, .fade-leave-active {
-  transition: opacity 5s;
-}
-.fade-enter-active, .fade-leave-to {
-  transform: translateY(100px);
-  opacity: 0;
-}*/
 </style>
