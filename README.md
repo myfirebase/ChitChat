@@ -5,48 +5,44 @@
 
 <h3 align="center"><b>Myfirebase</b> <i> SPA framework</i></h3>
 
-> Currently Myfirebase is in development stage, Thank you for your testing.
+ChitChiat it's a simple SPA's chat room build on top of **Myfireabse**.
 
+Live Demo : [ChitChat Room](https://chitchat-7117b.firebaseapp.com)
 
-## Prerequisites
+## Quick start
 
-1. **NPM** is the recommended installation method when building large scale applications with **Myfirebase**.
+1. Download or Clone project.
 
-   If this is the first time you want to give **npm** a shot, don't worry, we got exactly what you need.
+2. Create new firebase application through [firebase console](https://console.firebase.google.com).
 
-   - [How to Install Node.js and NPM on Windows](http://blog.teamtreehouse.com/install-node-js-npm-windows)
+3. Add Firebase to your web app, copy and past the config object to your SPA project `chitchat/src/firebase/config.js`.
 
-   - [How to Install Node.js and NPM on a Mac](http://blog.teamtreehouse.com/install-node-js-npm-mac)
-
-   - [How to Install Node.js and NPM on a Linux](http://blog.teamtreehouse.com/install-node-js-npm-linux)
-
-2. **Firebase command line interface**, `npm install -g firebase-tools`
-
-3. **Gulp** to automate and enhance your workflow, `npm install -g gulp`
-
-## Installation
+4. Install npm dependencies and run dev server.
 
 ```shell
-# Clone the repository
-git clone https://github.com/myfirebase/myfirebase
-
-# Change directory
-cd myfirebase
-
 # Install dependencies
 npm install
 
 # Sign in using your Google account
-npm run login
+firebase login
 
-# Initialize firebase project
-npm run init
-
-# Compile assets
-npm run dev
+# Initialize firebase client project
+firebase init
 
 # Run the server
-npm run serve
+npm run dev
 ```
+
+### Production and deployment
+
+```shell
+# Production
+npm run build
+
+# Deploy
+firebase deploy
+```
+
+Congratulations you've deployed your first SPA room chat, enjoy it with friends.
 
 ### Contact : amranidev@gmail.com
