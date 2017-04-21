@@ -24,7 +24,7 @@
 						<li v-if = "!signed"><router-link to = "login">Login</router-link></li>
 						<li v-if = "signed"><router-link to = 'update-profile'>Profile</router-link></li>
 						<li role="separator" class="divider"></li>
-						<li v-if = "signed"><a href="/login" @click="logout()">Logout</a></li>
+						<li v-if = "signed"><a class = "logout" @click="logout()">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -65,7 +65,8 @@ export default {
     },
     methods:{
     	logout(){
-    		this.$auth.logout()
+    		this.$store.state.database.child(`activeUsers/${this.$auth.user().uid}`).remove()
+			this.$auth.logout()
     		this.signed = false
     	},
     	collapsAction(){
@@ -74,3 +75,9 @@ export default {
     }
 }
 </script>
+
+<style scope>
+	.logout{
+		cursor: pointer;
+	}
+</style>
