@@ -5,12 +5,12 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Active Users</div>
                 <div class="panel-body">
-                <ul class="list-group">
-                    <li class="list-group-item" v-for="activeuser in activeUsers">
-                        {{activeuser.userEmail}}
-                        <span class="pull-right active-user"><i class="fa fa-circle"></i></span>
-                    </li>    
-                </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="activeuser in activeUsers">
+                            {{activeuser.userEmail}}
+                            <span class="pull-right active-user"><i class="fa fa-circle"></i></span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -19,19 +19,28 @@
                 <div class="panel-heading">
                     Messages
                 </div>
-                <div class="panel-body">
-                    <transition-group name="list-group" class = "list-group" tag="ul">
-                        <li class="list-group-item" v-for="message in messages" :key="message">
-                            {{message.message}} - <small><i>{{isUserMessageDisplay(message)}}</i></small>
-                            <span class="delete-message pull-right" v-if="isUserMessage(message)" @click="deleteMessage(message)"><i class="fa fa-trash"></i></span>
+                <div class="panel-body chat-body">
+                    <transition-group name="list-group" class="list-group chat" tag="ul">
+                        <li class="clearfix list-group-item" v-for="message in messages" :key="message">
+                        <span class="pull-right">
+                            <img :src="getUserAvatar(message)" alt="User Avatar" class="img-circle user-avatar" />
+                        </span>
+                            <div class="clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">{{message.userName}}</strong> 
+                                </div>
+                                <p>
+                                    {{message.message}}
+                                </p>
+                            </div>
                         </li>
                     </transition-group>
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input type="text" class = "form-control" v-model = "newMessage" v-on:keyup.enter="sendMessage()" placeholder="Write something...">
+                        <input type="text" class="form-control" v-model="newMessage" v-on:keyup.enter="sendMessage()" placeholder="Write something...">
                         <div class="input-group-btn">
-                            <button class="btn btn-primary" @click = "sendMessage()">Add</button>
+                            <button class="btn btn-primary" @click="sendMessage()">Add</button>
                         </div>
                     </div>
                 </div>
@@ -73,7 +82,8 @@ export default {
             this.$firebaseRefs.messages.onDisconnect().cancel()
             this.$firebaseRefs.messages.push({
                 message: this.newMessage,
-                userName: this.username
+                userName: this.username,
+                photoURL: this.$auth.user().photoURL
             });
             this.newMessage = ''
         },
@@ -83,8 +93,14 @@ export default {
         isUserMessage(message) {
             return message.userName == this.$auth.user().displayName ? true : false
         },
+        isUserMedia(message){
+            return message.userName == this.$auth.user().displayName ? 'pull-right' : 'pull-left'
+        },
         isUserMessageDisplay(message) {
             return message.userName == this.$auth.user().displayName ? 'you' : message.userName
+        },
+        getUserAvatar(message){
+            return message.photoURL
         }
     }
 }
@@ -113,5 +129,9 @@ export default {
     .chat-body{
         overflow-y: scroll;
         height: 450px;
+    }
+    .user-avatar{
+        max-width: 50px;
+        min-height: 50px;
     }
 </style>
