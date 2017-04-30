@@ -19,11 +19,11 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="">
-					<a href="#" role="button" @click = "toggle = !toggle">{{username}} <span class="caret"></span></a>
+					<a href="#" role="button" @click = "toggle = !toggle">Settings<span class="caret"></span></a>
 					<ul v-if="toggle" class="dropdown-menu">
 						<li v-if = "!signed"><router-link to = "login">Login</router-link></li>
 						<li v-if = "signed"><router-link to = 'update-profile'>Profile</router-link></li>
-						<li role="separator" class="divider"></li>
+						<li v-if = "signed" role="separator" class="divider"></li>
 						<li v-if = "signed"><a class = "logout" @click="logout()">Logout</a></li>
 					</ul>
 				</li>
@@ -37,8 +37,8 @@
 export default {
     mounted() {
     	this.$auth.state({
-            forward: '/update-profile',
-            redirect: '/login',
+            forward: '',
+            redirect: '',
     		then: (user) => {
     			this.signed = true
     			this.username = user.displayName

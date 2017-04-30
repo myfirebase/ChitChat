@@ -44,12 +44,11 @@
 <script>
     export default {
         mounted() {
-            this.$auth.state({
-                forward: '/app',
-                redirect: '/login',
-                then: (user) => { },
-                catch: () => { }
-            });
+        /**
+         * the recommended way to handle redirections after login/register is to do it manually through methods.
+         * 
+         * @see routesActions
+         */               
         },
         firebase() {
             return {
@@ -79,6 +78,7 @@
                                 userEmail: user.email
                             }
                         })
+                    this.routesAction('/app');
                     },
                     error: (error) => {
                         this.error = error.message
@@ -100,6 +100,7 @@
                                 userEmail: user.email
                             }
                         })
+                    this.routesAction('/update-profile');
                     },
                     error: (error) => {
                         this.error = error.message
@@ -123,6 +124,7 @@
                                 userEmail: result.user.email
                             }
                         })
+                    this.routesAction('/app');
                     },
                     error: (error) => {
                         this.error = error.message
@@ -140,6 +142,7 @@
                                 userEmail: result.user.email
                             }
                         })
+                    this.routesAction('/app');
                     },
                     error: (error) => {
                         this.error = error.message
@@ -157,6 +160,7 @@
                                 userEmail: result.user.email
                             }
                         })
+                    this.routesAction('/app');
                     },
                     error: (error) => {
                         this.error = error.message
@@ -174,13 +178,18 @@
                                 userEmail: result.user.email
                             }
                         })
+                    this.routesAction('/app');
                     },
                     error: (error) => {
                         this.error = error.message
                     }
                 })
+            },
+            routesAction(action){
+                this.$destroy()
+                this.$router.push(action)
+                this.$router.go(1)
             }
         }
     }
-
 </script>
