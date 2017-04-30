@@ -7,7 +7,7 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <li class="list-group-item" v-for="activeuser in activeUsers">
-                                {{activeuser.userEmail}}
+                                {{activeUser(activeuser)}}
                                 <span class="pull-right active-user"><i class="fa fa-circle"></i></span>
                             </li>
                         </ul>
@@ -124,6 +124,9 @@
                     message: this.messageModel
                 })
                 message.show = true
+            },
+            activeUser(user){
+                return user.userName ? user.userName : user.userEmail
             }
         }
     }
