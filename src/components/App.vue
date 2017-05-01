@@ -23,8 +23,8 @@
                         <transition-group name="list-group" class="list-group chat" tag="ul">
                             <li class="clearfix list-group-item" v-for="message in messages" :key="message">
                                 <span class="pull-right">
-                                            <img :src="getUserAvatar(message)" alt="User Avatar" class="img-circle user-avatar" />
-                                        </span>
+                                                <img :src="getUserAvatar(message)" alt="User Avatar" class="img-circle user-avatar" />
+                                            </span>
                                 <div class="clearfix">
                                     <div class="header">
                                         <strong class="primary-font">{{message.userName}}</strong>
@@ -67,11 +67,23 @@
                 redirect: '/login',
                 then: (user) => {
                     this.username = user.displayName
+                    if (!user.photoURL) {
+                        this.$auth.updateProfilePicture({
+                            ref: 'https://firebasestorage.googleapis.com/v0/b/chitchat-7117b.appspot.com/o/images%2Fdefault.jpg?alt=media&token=d5936638-7c72-44f5-97ce-be1758a3788f',
+                            result: () => {
+    
+                            },
+                            error: (error) => {
+    
+                            }
+                        })
+                    }
                 },
                 catch: () => {
                     this.$destroy()
                 }
             })
+            console.log(this.$firebaseRefs.messages)
         },
         firebase() {
             return {
@@ -121,11 +133,13 @@
             },
             updateMessage(message) {
                 this.$firebaseRefs.messages.child(message['.key']).update({
-                    message: this.messageModel
+                    message: this.messageModel,
+                    photoURL: this.$auth.user().photoURL,
+                    userName: this.$auth.user().displayName
                 })
                 message.show = true
             },
-            activeUser(user){
+            activeUser(user) {
                 return user.userName ? user.userName : user.userEmail
             }
         }
