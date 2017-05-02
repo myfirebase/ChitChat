@@ -6,7 +6,6 @@
                     <div class="alert alert-danger alert-dismissable" v-if="error">
                         <a href="#" class="close" @click="error = ''">&times;</a>
                         <strong>{{error}}</strong>
-                        <br><br><br>
                     </div>
                     <div class="push-down"></div>
                     <div class="panel panel-primary">
