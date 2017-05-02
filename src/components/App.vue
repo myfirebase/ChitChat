@@ -15,6 +15,10 @@
                 </div>
             </div>
             <div class="col-md-8">
+                <div class="alert alert-danger alert-dismissable" v-if="error">
+                    <a href="#" class="close" @click="error = ''">&times;</a>
+                    <strong>{{error}}</strong>
+                </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         Messages
@@ -22,12 +26,11 @@
                     <div class="panel-body chat-body">
                         <transition-group name="list-group" class="list-group chat" tag="ul">
                             <li class="clearfix list-group-item" v-for="message in messages" :key="message">
-                                <span class="pull-right">
-                                                <img :src="getUserAvatar(message)" alt="User Avatar" class="img-circle user-avatar" />
-                                            </span>
+                                <span class="pull-right"><img :src="getUserAvatar(message)" alt="User Avatar" class="img-circle user-avatar" /></span>
                                 <div class="clearfix">
                                     <div class="header">
-                                        <strong class="primary-font">{{message.userName}}</strong>
+                                        <strong class="primary-font">{{displayMessageOwner(message)}}</strong>
+                                        <small><span class="glyphicon glyphicon-time"></span> {{dateFormat(message.date)}}</small>
                                     </div>
                                     <p v-if="message.show" @dblclick="editMessage(message)">
                                         {{message.message}}
@@ -60,6 +63,7 @@
 </template>
 
 <script>
+    import * as moment from 'moment';
     export default {
         mounted() {
             this.$auth.state({
@@ -103,11 +107,17 @@
         },
         methods: {
             sendMessage() {
+                if (!this.messageModel) {
+                    this.error = "Whoops!! something went wrong, Message is empty!!"
+                    return
+                }
                 this.$firebaseRefs.messages.onDisconnect().cancel()
                 this.$firebaseRefs.messages.push({
                     message: this.newMessage,
                     userName: this.username,
+                    userEmail: this.$auth.user().email,
                     show: true,
+                    date: this.currentDate(),
                     photoURL: this.$auth.user().photoURL
                 });
                 this.newMessage = ''
@@ -121,27 +131,59 @@
             isUserMedia(message) {
                 return message.userName == this.$auth.user().displayName ? 'pull-right' : 'pull-left'
             },
-            isUserMessageDisplay(message) {
-                return message.userName == this.$auth.user().displayName ? 'you' : message.userName
-            },
             getUserAvatar(message) {
                 return message.photoURL
             },
             editMessage(message) {
+                if (message.userEmail != this.$auth.user().email) {
+                    return
+                }
                 message.show = false
                 this.messageModel = message.message
             },
+            displayMessageOwner(message) {
+                if (!message.userName) {
+                    return message.userEmail
+                }
+                return message.userName
+            },
             updateMessage(message) {
+                if (!this.messageModel) {
+                    this.error = "Whoops!! something went wrong, Message is empty!!"
+                    return
+                }
                 this.$firebaseRefs.messages.child(message['.key']).update({
                     message: this.messageModel,
                     photoURL: this.$auth.user().photoURL,
-                    userName: this.$auth.user().displayName
+                    userName: this.$auth.user().displayName,
+                    userEmail: this.$auth.user().email,
+                    date: this.currentDate(),
                 })
                 message.show = true
             },
             activeUser(user) {
                 return user.userName ? user.userName : user.userEmail
-            }
+            },
+            currentDate() {
+                let today = new Date();
+                let minute = today.getMinutes();
+                let hour = today.getHours();
+                let dd = today.getDate();
+                let mm = today.getMonth() + 1;
+                let yyyy = today.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+                today = mm + '/' + dd + '/' + yyyy;
+                today = `${yyyy}-${mm}-${dd} ${hour}:${minute}`
+                return today
+            },
+            dateFormat(time) {
+                return moment(time).fromNow()
+            },
         }
     }
 </script>
