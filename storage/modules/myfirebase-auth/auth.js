@@ -76,7 +76,6 @@ export default {
         register(state, user) {
             const promis = state.auth.createUserWithEmailAndPassword(user.email, user.password)
             promis.then((userResult) => {
-                console.log("from Vuex : Done : " + user.email)
                 user.result(userResult)
             }).catch(error => {
                 state.error = error.message
