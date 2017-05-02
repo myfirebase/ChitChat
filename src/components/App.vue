@@ -107,7 +107,7 @@
         },
         methods: {
             sendMessage() {
-                if (!this.messageModel) {
+                if (!this.newMessage) {
                     this.error = "Whoops!! something went wrong, Message is empty!!"
                     return
                 }
