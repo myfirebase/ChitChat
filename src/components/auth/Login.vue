@@ -99,6 +99,7 @@
                                 userEmail: user.email
                             }
                         })
+                    user.sendEmailVerification();
                     this.routesAction('/update-profile');
                     },
                     error: (error) => {
