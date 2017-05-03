@@ -81,6 +81,7 @@
                     },
                     error: (error) => {
                         this.error = error.message
+                        this.loginState = false
                     }
                 })
                 this.middleware()
@@ -103,6 +104,7 @@
                     },
                     error: (error) => {
                         this.error = error.message
+                        this.loginState = false
                     }
                 });
             },
