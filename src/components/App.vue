@@ -182,7 +182,7 @@
                 return today
             },
             dateFormat(time) {
-                return moment(time).fromNow()
+                return moment(time,["YYYY-MM-DD"]).fromNow()
             },
         }
     }
