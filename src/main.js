@@ -7,6 +7,9 @@ import router from './router'
 import store from './../storage/store'
 import VueFire from 'vuefire'
 import Myfirebase from 'myfirebase'
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+
+OfflinePluginRuntime.install();
 
 Vue.config.productionTip = false
 
