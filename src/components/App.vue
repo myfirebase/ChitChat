@@ -82,17 +82,18 @@
                             }
                         })
                     }
+                    this.$bindAsArray('messageLookup', this.$store.state.database.child('messageLookup/' + user.uid))
                 },
                 catch: () => {
                     this.$destroy()
                 }
             })
-            console.log(this.$firebaseRefs.messages)
         },
         firebase() {
             return {
                 messages: this.$store.state.database.child('messages'),
-                activeUsers: this.$store.state.database.child('activeUsers')
+                activeUsers: this.$store.state.database.child('activeUsers'),
+                messageLookup: this.$store.state.database.child('messageLookup')
             }
         },
         data() {
@@ -112,7 +113,8 @@
                     return
                 }
                 this.$firebaseRefs.messages.onDisconnect().cancel()
-                this.$firebaseRefs.messages.push({
+                var userId = this.$auth.user().uid
+                var key = this.$firebaseRefs.messages.push({
                     message: this.newMessage,
                     userName: this.username,
                     userEmail: this.$auth.user().email,
@@ -120,6 +122,10 @@
                     date: this.currentDate(),
                     photoURL: this.$auth.user().photoURL
                 });
+                this.$firebaseRefs.messageLookup.update({
+                    [key.key]: true
+                })
+    
                 this.newMessage = ''
             },
             deleteMessage(message) {
@@ -182,7 +188,7 @@
                 return today
             },
             dateFormat(time) {
-                return moment(time,["YYYY-MM-DD"]).fromNow()
+                return moment(time, ["YYYY-MM-DD"]).fromNow()
             },
         }
     }
