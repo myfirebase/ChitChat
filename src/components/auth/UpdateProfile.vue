@@ -5,9 +5,9 @@
                 <img :src="profilePicture" alt="Prifile Picture" class="img-circle img-responsive img-rounded img-thumbnail image">
                 <div class="push-down">
                     <label class="btn btn-default">
-                        <input type="file" class="hidden" @change="getFile" accept="image/*">
-                        Browse <i class="fa fa-file"></i>
-                    </label>
+                            <input type="file" class="hidden" @change="getFile" accept="image/*">
+                            Browse <i class="fa fa-file"></i>
+                        </label>
                     <button v-if="newPhoto" class="btn btn-primary" @click="updateAvatar()" :disabled="uploading"><i v-if="uploading" class="fa fa-spinner fa-spin"></i>Update</button>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <input v-model="userName" type="text" class="form-control" placeholder="Username">
                     </div>
-                    <a class="btn btn-primary" @click="updateProfile()">Save Changes</a>
+                    <a class="btn btn-primary" @click="updateProfile()"><i v-if="saving" class="fa fa-spinner fa-spin"></i>Save Changes</a>
                 </form>
             </div>
         </div>
@@ -59,7 +59,8 @@
                 userName: '',
                 newPhoto: null,
                 error: '',
-                uploading: false
+                uploading: false,
+                saving: false
             }
         },
         computed: {},
@@ -81,7 +82,6 @@
                         this.error = err.message
                     },
                     completed: (downloadURL) => {
-                        console.log(downloadURL)
                         this.updateProfilePicture(downloadURL)
                         this.newPhoto = null
                         this.uploading = false
@@ -102,13 +102,24 @@
                 })
             },
             updateProfile() {
+                this.saving = true
                 this.$auth.user().updateProfile({
                     displayName: this.userName,
                     email: this.userEmail
                 }).then(() => {
+                    this.$store.state.database.child('messageLookup/' + this.$auth.user().uid).once('value')
+                        .then((snapshot) => {
+                            snapshot.forEach(childSnapshot => {
+                                this.$store.state.database.child('messages/' + childSnapshot.key).update({
+                                    userName: this.userName
+                                })
+                            })
+                        })
                     this.message = "Updated"
+                    this.saving = false
                 }).catch(error => {
                     this.error = error.message
+                    this.saving = false
                 })
             },
             synchronize() {
