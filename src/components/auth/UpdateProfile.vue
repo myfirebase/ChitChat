@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <input v-model="userName" type="text" class="form-control" placeholder="Username">
                     </div>
-                    <a class="btn btn-primary" @click="updateProfile()"><i v-if="saving" class="fa fa-spinner fa-spin"></i>Save Changes</a>
+                    <a class="btn btn-primary" @click="updateProfile()" :disabled="uploading"><i v-if="saving" class="fa fa-spinner fa-spin"></i>Save Changes</a>
                 </form>
             </div>
         </div>
