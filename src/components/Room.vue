@@ -3,18 +3,18 @@
     <v-card>
       <v-list two-line subheader>
         <v-subheader>Threads</v-subheader>
-        <v-list-tile v-for="(person, index) in Persons" :key="index">
+        <v-list-tile v-for="(thread, index) in Threads" :key="index">
           <v-list-tile-content>
-            <v-list-tile-title>{{person.name}}</v-list-tile-title>
+            <v-list-tile-title>{{thread.message}}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-icon color="black" @click="remove(person['.key'])">delete</v-icon>
+            <v-icon color="black" @click="remove(thread['.key'])">delete</v-icon>
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
       <v-container>
-      <v-text-field label="Person Name" v-model="Person.name" @keyup.enter="add()"></v-text-field>
-      <v-btn @click="add()">Add Person</v-btn>
+      <v-text-field label="Message" v-model="Thread.message" @keyup.enter="add()"></v-text-field>
+      <v-btn @click="add()">Send Message!</v-btn>
       </v-container>
     </v-card>
     <div class="overlay" v-if="!ready">
@@ -27,30 +27,30 @@
 
 <script>
 
-import Person from "@/models/Person"
+import Thread from "@/models/Thread"
 
 export default {
     created () {
-        this.$binding('Persons', this.$myFirestore.collection('Persons')).then(data => {
+        this.$binding('Threads', this.$myFirestore.collection('Threads')).then(data => {
             this.ready = true
         })
     },
     data () {
         return {
-            Person: new Person(this.$myFirestore.collection('Persons')).init(),
+            Thread: new Thread(this.$myFirestore.collection('Threads')).init(),
             ready: false
         }
     },
     methods: {
         add () {
-            this.Person.add().then((success) => {
+            this.Thread.add().then((success) => {
             }).catch(error => {
                 console.log(error.message)
             })
-            this.Person.name = ""
+            this.Thread.message = ""
         },
         remove (key) {
-            this.Person.delete(key).then(() => {
+            this.Thread.delete(key).then(() => {
             }).catch(error => {
                 console.log(error.message)
             })
@@ -60,11 +60,4 @@ export default {
 </script>
 
 <style scoped>
-.container {
-    margin: 0 auto;
-}
-
-.data-container {
-    width: 700px;
-}
 </style>
