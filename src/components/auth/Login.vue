@@ -35,18 +35,6 @@
                 <img class="icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
                 Login with Google
               </v-btn>
-              <v-btn class="facebook" block @click="signInFacebook">
-                <img class="icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/facebook.svg">
-                Login with Facebook
-              </v-btn>
-              <v-btn class="twitter" block @click="signInTwitter">
-                <img class="icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/twitter.svg">
-                Login with Twitter
-              </v-btn>
-              <v-btn class="github" block @click="signInGithub">
-                <img class="icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/github.svg">
-                Login with GitHub
-              </v-btn>
             </v-card-text>
           </v-card>
         </v-flex>
