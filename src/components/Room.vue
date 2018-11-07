@@ -2,7 +2,7 @@
   <div>
     <v-card>
       <v-list two-line subheader>
-        <v-subheader>Threads</v-subheader>
+        <v-subheader>Messages</v-subheader>
         <v-list-tile v-for="(thread, index) in Threads" :key="index">
           <v-list-tile-content>
             <v-list-tile-title>{{thread.message}}</v-list-tile-title>
