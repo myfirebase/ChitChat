@@ -34,6 +34,8 @@ export default {
         this.$binding('Threads', this.$myFirestore.collection('Threads')).then(data => {
             this.ready = true
         })
+
+        this.Thread.uid = this.$auth.user().uid
     },
     data () {
         return {
