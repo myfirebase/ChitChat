@@ -27,16 +27,14 @@
 
 <script>
 
-import Thread from "@/models/Thread"
+import Thread from '@/models/Thread'
+import General from '@/mixin/room'
 
 export default {
     created () {
-        this.$binding('Threads', this.$myFirestore.collection('Threads')).then(data => {
-            this.ready = true
-        })
-
         this.Thread.uid = this.$auth.user().uid
     },
+    mixins: [General],
     data () {
         return {
             Thread: new Thread(this.$myFirestore.collection('Threads')).init(),
@@ -45,6 +43,7 @@ export default {
     },
     methods: {
         add () {
+            this.Thread.setCreatedAt(this.timestamp);
             this.Thread.add().then((success) => {
             }).catch(error => {
                 console.log(error.message)
