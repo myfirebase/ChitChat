@@ -19,6 +19,16 @@ class Thread extends FirestoreModel {
     required () {
         return []
     }
+
+    /**
+     * Set created_at.
+     * 
+     * @param {*} timestamp
+     * @return void
+     */
+    setCreatedAt (timestamp) {
+        this.created_at = timestamp
+    }
 }
 
 export default Thread;
