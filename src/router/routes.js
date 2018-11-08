@@ -3,7 +3,6 @@ import Layout from '@/components/Layout'
 import Welcome from '@/components/Welcome'
 import Login from '@/components/auth/Login'
 import Profile from '@/components/auth/UpdateProfile'
-import App from '@/components/App'
 import NotFound from '@/components/errors/404'
 import Room from '@/components/Room'
 
