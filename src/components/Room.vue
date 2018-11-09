@@ -5,7 +5,7 @@
         <v-subheader>Messages</v-subheader>
         <v-list-tile v-for="(thread, index) in Threads" :key="index">
           <v-list-tile-content>
-            <v-list-tile-title>{{thread.message}}</v-list-tile-title>
+            <v-list-tile-title>{{thread.message}} - <i>{{thread.username}}</i></v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
             <v-icon color="black" @click="remove(thread['.key'])">delete</v-icon>
@@ -33,6 +33,7 @@ import General from '@/mixin/room'
 export default {
     created () {
         this.Thread.uid = this.$auth.user().uid
+        this.Thread.username = this.$auth.user().displayName
     },
     mixins: [General],
     data () {
