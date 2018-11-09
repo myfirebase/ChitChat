@@ -1,4 +1,3 @@
-// Routes
 import Layout from '@/components/Layout'
 import Welcome from '@/components/Welcome'
 import Login from '@/components/auth/Login'
@@ -43,6 +42,5 @@ const routes = [{
         }
     ]
 }]
-
 
 export default routes;
