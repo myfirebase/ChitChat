@@ -27,7 +27,7 @@ class Thread extends FirestoreModel {
      * @return void
      */
     setUserId (uid) {
-        this.created_at = uid
+        this.uid = uid
     }
 
     /**
