@@ -21,6 +21,36 @@ class Thread extends FirestoreModel {
     }
 
     /**
+     * Set User id.
+     * 
+     * @param {int} uid
+     * @return void
+     */
+    setUserId (uid) {
+        this.created_at = uid
+    }
+
+    /**
+     * Set Photo url.
+     * 
+     * @param {string} photoURL
+     * @return void
+     */
+    setPhotoUrl (photoURL) {
+        this.photoURL = photoURL
+    }
+
+    /**
+     * Set Username.
+     * 
+     * @param {string} username
+     * @return void
+     */
+    setUsername (username) {
+        this.username = username
+    }
+
+    /**
      * Set created_at.
      * 
      * @param {*} timestamp
