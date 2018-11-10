@@ -10,7 +10,7 @@
           <v-list-tile-content>
             <v-list-tile-title>{{thread.message}} </v-list-tile-title>
           </v-list-tile-content>
-          <v-list-tile-action>
+          <v-list-tile-action v-if="thread.uid === user.uid">
             <v-icon color="black" @click="remove(thread['.key'])">delete</v-icon>
           </v-list-tile-action>
         </v-list-tile>
