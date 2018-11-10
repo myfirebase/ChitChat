@@ -11,6 +11,9 @@ export default {
 	computed: {
 		timestamp () {
 			return this.$store.state.firebase.firestore.FieldValue.serverTimestamp()
+		},
+		user () {
+		 	return this.$auth.user()
 		}
 	}
 }
