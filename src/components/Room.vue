@@ -4,8 +4,11 @@
       <v-list two-line subheader>
         <v-subheader>Messages</v-subheader>
         <v-list-tile v-for="(thread, index) in Threads" :key="index">
+        <v-list-tile-avatar  color="grey lighten-4">
+          <img :src="thread.photoURL" alt="avatar">
+        </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{thread.message}} - <i>{{thread.username}}</i></v-list-tile-title>
+            <v-list-tile-title>{{thread.message}} </v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
             <v-icon color="black" @click="remove(thread['.key'])">delete</v-icon>
@@ -31,10 +34,6 @@ import Thread from '@/models/Thread'
 import General from '@/mixin/room'
 
 export default {
-    created () {
-        this.Thread.uid = this.$auth.user().uid
-        this.Thread.username = this.$auth.user().displayName
-    },
     mixins: [General],
     data () {
         return {
