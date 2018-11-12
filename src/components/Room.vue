@@ -51,7 +51,7 @@ export default {
             }).catch(error => {
                 console.log(error.message)
             })
-            this.Thread.message = ""
+            this.Thread.clearMessage()
         },
         remove (key) {
             this.Thread.delete(key).then(() => {
