@@ -68,6 +68,15 @@ class Thread extends FirestoreModel {
     isEmpty () {
         return !this.message
     }
+
+    /**
+     * Clear message.
+     * 
+     * @return {void}
+     */
+    clearMessage () {
+        this.message = ''
+    }
 }
 
 export default Thread;
