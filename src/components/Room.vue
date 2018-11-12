@@ -16,8 +16,8 @@
         </v-list-tile>
       </v-list>
       <v-container>
-      <v-text-field label="Message" v-model="Thread.message" @keyup.enter="add()"></v-text-field>
-      <v-btn @click="add()">Send Message!</v-btn>
+        <v-text-field label="Message" v-model="Thread.message" @keyup.enter="newMessage()"></v-text-field>
+        <v-btn @click="newMessage()">Send Message!</v-btn>
       </v-container>
     </v-card>
     <div class="overlay" v-if="!ready">
@@ -31,10 +31,10 @@
 <script>
 
 import Thread from '@/models/Thread'
-import General from '@/mixin/room'
+import Room from '@/mixin/room'
 
 export default {
-    mixins: [General],
+    mixins: [Room],
     data () {
         return {
             Thread: new Thread(this.$myFirestore.collection('Threads')).init(),
@@ -42,7 +42,7 @@ export default {
         }
     },
     methods: {
-        add () {
+        newMessage () {
             this.Thread.setCreatedAt(this.timestamp);
             this.Thread.add().then((success) => {
             }).catch(error => {
