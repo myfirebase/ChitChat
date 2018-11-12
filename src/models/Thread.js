@@ -59,6 +59,15 @@ class Thread extends FirestoreModel {
     setCreatedAt (timestamp) {
         this.created_at = timestamp
     }
+
+    /**
+     * Check if the message is empty.
+     * 
+     * @return {Boolean}
+     */
+    isEmpty () {
+        return !this.message
+    }
 }
 
 export default Thread;
