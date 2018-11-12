@@ -8,7 +8,7 @@
           <img :src="thread.photoURL" alt="avatar">
         </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{thread.message}} </v-list-tile-title>
+            <v-list-tile-title>{{ thread.message }}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action v-if="thread.uid === user.uid">
             <v-icon color="black" @click="remove(thread['.key'])">delete</v-icon>
@@ -16,7 +16,7 @@
         </v-list-tile>
       </v-list>
       <v-container>
-        <v-text-field label="Message" v-model="Thread.message" @keyup.enter="newMessage()"></v-text-field>
+        <v-textarea label="Message" v-model="Thread.message" @keyup.enter="newMessage()"></v-textarea>
         <v-btn @click="newMessage()">Send Message!</v-btn>
       </v-container>
     </v-card>
