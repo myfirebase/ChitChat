@@ -43,6 +43,9 @@ export default {
     },
     methods: {
         newMessage () {
+            if (this.Thread.isEmpty()) {
+              return
+            }
             this.Thread.setCreatedAt(this.timestamp);
             this.Thread.add().then((success) => {
             }).catch(error => {
