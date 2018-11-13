@@ -4,15 +4,18 @@
       <v-list two-line subheader>
         <v-subheader>Messages</v-subheader>
         <v-list-tile v-for="(thread, index) in Threads" :key="index">
-        <v-list-tile-avatar  color="grey lighten-4">
+        <v-list-tile-avatar  color="grey lighten-4" v-if="thread.uid !== user.uid">
           <img :src="thread.photoURL" alt="avatar">
         </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ thread.message }}</v-list-tile-title>
           </v-list-tile-content>
-          <v-list-tile-action v-if="thread.uid === user.uid">
+          <!-- <v-list-tile-action v-if="thread.uid === user.uid">
             <v-icon color="black" @click="remove(thread['.key'])">delete</v-icon>
-          </v-list-tile-action>
+          </v-list-tile-action> -->
+        <v-list-tile-avatar  color="grey lighten-4" v-if="thread.uid === user.uid">
+          <img :src="thread.photoURL" alt="avatar">
+        </v-list-tile-avatar>
         </v-list-tile>
       </v-list>
       <v-container>
