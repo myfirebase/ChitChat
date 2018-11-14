@@ -77,6 +77,15 @@ class Thread extends FirestoreModel {
     clearMessage () {
         this.message = ''
     }
+
+    /**
+     * Set thread message.
+     * 
+     * @param {void} message
+     */
+    setMessage (message) {
+        this.message = message
+    }
 }
 
 export default Thread;
