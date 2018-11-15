@@ -42,7 +42,7 @@
 export default {
   mounted () {
     this.$auth.logout();
-    this.$auth.state("/realtime-database", "/login").then(user => {
+    this.$auth.state("/room", "/login").then(user => {
       if (!user) {
         this.ready = false;
       }
