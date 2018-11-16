@@ -69,15 +69,11 @@ export default {
           this.$forceUpdate()
         },
         updateThread (message) {
-          console.log(message['.key'])
-          // console.log(this.Thread)
           this.Thread.update(message['.key']).then(() => {
-            // console.log('Done')
+            this.$forceUpdate()
           }).catch((err) => {
-            // console.log('errr')
           })
           message.show = false
-          this.$forceUpdate()
         }
     }
 }
