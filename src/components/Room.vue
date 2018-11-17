@@ -7,7 +7,7 @@
         <v-list-tile-avatar  color="grey lighten-4" v-if="thread.uid !== user.uid">
           <img :src="thread.photoURL" alt="avatar">
         </v-list-tile-avatar>
-          <v-list-tile-content @dblclick="remove(thread['.key'])">
+          <v-list-tile-content @dblclick="remove(thread)">
             <v-list-tile-title>{{ thread.message }}</v-list-tile-title>
           </v-list-tile-content>
         <v-list-tile-avatar  color="grey lighten-4" v-if="thread.uid === user.uid">
@@ -53,8 +53,11 @@ export default {
           })
           this.Thread.clearMessage()
         },
-        remove (key) {
-          this.Thread.delete(key).then(() => {
+        remove (thread) {
+          if (thread.uid != this.user.uid) {
+            return
+          }
+          this.Thread.delete(thread['.key']).then(() => {
           }).catch(error => {
               console.log(error.message)
           })
