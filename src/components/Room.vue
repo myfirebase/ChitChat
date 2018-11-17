@@ -7,13 +7,9 @@
         <v-list-tile-avatar  color="grey lighten-4" v-if="thread.uid !== user.uid">
           <img :src="thread.photoURL" alt="avatar">
         </v-list-tile-avatar>
-          <v-list-tile-content @dblclick='editThread(thread)'>
-            <v-list-tile-title v-if='!thread.show'>{{ thread.message }}</v-list-tile-title>
-            <v-text-field v-else='thread.show' v-model='Thread.message'></v-text-field>
+          <v-list-tile-content @dblclick="remove(thread['.key'])">
+            <v-list-tile-title>{{ thread.message }}</v-list-tile-title>
           </v-list-tile-content>
-          <v-list-tile-action v-if="thread.show">
-            <v-icon color="black" @click='updateThread(thread)'>save</v-icon>
-          </v-list-tile-action>
         <v-list-tile-avatar  color="grey lighten-4" v-if="thread.uid === user.uid">
           <img :src="thread.photoURL" alt="avatar">
         </v-list-tile-avatar>
@@ -62,18 +58,6 @@ export default {
           }).catch(error => {
               console.log(error.message)
           })
-        },
-        editThread (message) {
-          message.show = true
-          this.Thread.setMessage(message.message)
-          this.$forceUpdate()
-        },
-        updateThread (message) {
-          this.Thread.update(message['.key']).then(() => {
-            this.$forceUpdate()
-          }).catch((err) => {
-          })
-          message.show = false
         }
     }
 }
