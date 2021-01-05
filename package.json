@@ -22,7 +22,7 @@
         "test": "cross-env BABEL_ENV=test karma start tests/unit/karma.conf.js --single-run"
     },
     "dependencies": {
-        "axios": "^0.18.1",
+        "axios": "^0.21.1",
         "firebase": "^5.0.4",
         "install": "^0.11.0",
         "myfirebase": "^0.4.3",
